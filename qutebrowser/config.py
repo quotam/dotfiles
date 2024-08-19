@@ -12,7 +12,7 @@
 
 # Change the argument to True to still load settings configured via autoconfig.yml
 config.load_autoconfig(False)
-
+config.set('content.notifications.enabled', False, '*://coub.com')
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
 # including IndexedDB, DOM storage, filesystem API, service workers, and
@@ -37,6 +37,17 @@ config.load_autoconfig(False)
 #   - never: Don't accept cookies at all.
 config.set("content.cookies.accept", "all", "chrome-devtools://*")
 config.set("content.javascript.clipboard", "access")
+config.set("qt.force_platformtheme", "dark")
+config.set("qt.force_platform", "wayland")
+
+c.content.tls.certificate_errors = "block"
+c.fileselect.handler = "external"
+# config.set("tabs.show", "switching")
+config.set("fileselect.single_file.command", ['kitty', '--class', 'yazi,yazi', 'yazi', '--chooser-file', '{}'])
+config.set("fileselect.multiple_files.command", ['kitty', '--class', 'yazi,yazi', 'yazi', '--chooser-file', '{}'])
+config.set("fileselect.folder.command", ['kitty', '--class', 'yazi,yazi', 'yazi', '--chooser-file', '{}'])
+
+
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
 # including IndexedDB, DOM storage, filesystem API, service workers, and
@@ -218,6 +229,7 @@ c.tabs.indicator.width = 2
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?q={}",
     "yt": "https://www.youtube.com/results?search_query={}",
+    'c': "https://cse.google.com/cse?cx=7359b9aa378c440ee&q={}",
     "ts": "https://translate.google.com/?sl=auto&text={}&op=translate",
 }
 
@@ -239,7 +251,6 @@ c.colors.tooltip.bg = "#161C20"
 # Foreground color of tooltips. If set to null, the Qt default is used.
 # Type: QssColor
 c.colors.tooltip.fg = "whitesmoke"
-
 # Background color of the context menu. If set to null, the Qt default
 # is used.
 # Type: QssColor
@@ -297,19 +308,27 @@ c.colors.tabs.even.fg = "gray"
 # Background color of unselected even tabs.
 # Type: QtColor
 
-c.colors.tabs.pinned.even.bg = "#161C20"
-c.colors.tabs.pinned.odd.bg = "#161C20"
 c.colors.tabs.pinned.selected.even.bg = "#1B2227"
 c.colors.tabs.pinned.selected.odd.bg = "#1B2227"
 c.colors.tabs.even.bg = "#161C20"
 
 # Background color of selected odd tabs.
 # Type: QtColor
-c.colors.tabs.selected.odd.bg = "#1B2227"
+
+
+c.colors.tabs.pinned.even.bg = "#6E8D6B"
+# c.colors.tabs.pinned.selected.even.fg = 'green'
+
+c.colors.tabs.pinned.odd.bg = "#6E8D6B"
+# c.colors.tabs.pinned.selected.odd.fg = 'green'
+
+c.colors.tabs.selected.odd.bg = "#6E8D6B"
+# c.colors.tabs.selected.odd.fg = "green"
 
 # Background color of selected even tabs.
 # Type: QtColor
-c.colors.tabs.selected.even.bg = "#1B2227"
+c.colors.tabs.selected.even.bg = "#6E8D6B"
+# c.colors.tabs.selected.even.fg = "green"
 
 # Foreground color of pinned unselected even tabs.
 # Type: QtColor
@@ -348,7 +367,8 @@ c.fonts.default_family = "JetBrainsMono Nerd Font"
 # Map keys to other keys, so that they are equivalent in all modes. When
 # the key used as dictionary-key is pressed, the binding for the key
 # used as dictionary-value is invoked instead. This is useful for global
-# remappings of keys, for example to map <Ctrl-[> to <Escape>. NOTE:
+# remappings of keys, for example to map <Ctrl-[> to <Escape>.
+#NOTE:
 # This should only be used if two keys should always be equivalent, i.e.
 # for things like <Enter> (keypad) and <Return> (non-keypad). For normal
 # command bindings, qutebrowser works differently to vim: You always

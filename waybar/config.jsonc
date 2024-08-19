@@ -5,20 +5,20 @@
     "name": "some",
     "output": "!HDMI-A-2",
     "modules-left": [
-      "sway/workspaces",
-      "sway/mode",
-      "sway/window"
+      "hyprland/workspaces",
+      "hyprland/mode",
+      "hyprland/window"
     ],
     "modules-center": [
       "tray",
       "clock",
-      "idle_inhibitor"
+      "custom/weather"
     ],
     "modules-right": [
-      "custom/swappy",
       "custom/wlsunset",
+      "custom/swappy",
       "pulseaudio",
-      "sway/language",
+      "hyprland/language",
       "custom/power"
     ],
     "include": [
@@ -31,13 +31,12 @@
     "name": "some-2",
     "output": "HDMI-A-2",
     "modules-center": [
-      "clock#date",
-      "custom/weather"
+      "clock#date"
     ],
     "modules-left": [
-      "sway/workspaces",
-      "sway/mode",
-      "sway/window"
+      "hyprland/workspaces",
+      "hyprland/mode",
+      "hyprland/window"
     ],
     "modules-right": [
       "custom/swappy",

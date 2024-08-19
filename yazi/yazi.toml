@@ -1,0 +1,29 @@
+[manager]
+show_hidden = true
+
+[opener]
+edit = [
+	{ run = 'nvim "$@"', block = true },
+]
+play = [
+	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+]
+cmus = [
+  { run = 'cmus run "$@"', block = true, for = "unix" },
+]
+open = [
+	{ run = 'xdg-open "$@"', desc = "Open" },
+]
+
+[open]
+prepend_rules = [
+	{ name = "*.json", use = "edit" },
+
+	{ name = "*.mp3", use = "cmus" },
+	# Multiple openers for a single rule
+	{ name = "*.html", use = [ "open", "edit" ] },
+]
+
+# append_rules = [
+# 	{ name = "*", use = "my-fallback" },
+# ]
