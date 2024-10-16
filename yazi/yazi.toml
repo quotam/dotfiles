@@ -1,6 +1,3 @@
-[manager]
-show_hidden = true
-
 [opener]
 edit = [
 	{ run = 'nvim "$@"', block = true },
@@ -18,6 +15,7 @@ open = [
 [open]
 prepend_rules = [
 	{ name = "*.json", use = "edit" },
+	{ name = "*.svg", use = "edit" },
 
 	{ name = "*.mp3", use = "cmus" },
 	# Multiple openers for a single rule

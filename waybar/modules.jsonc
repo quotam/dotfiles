@@ -4,7 +4,7 @@
     "separate-outputs": true
   },
   "hyprland/workspaces": {
-    "disable-scroll": true,
+    "on-scroll": "hyprctl dispatch workspace {}",
     "format": "{name}",
     "format-icons": {
       "active": "",
@@ -12,32 +12,17 @@
       "persistent": ""
     }
   },
-  "custom/light_dark": {
-    "format": "󰐾",
-    "on-click": "~/.config/waybar/scripts/baraction light",
-    "tooltip": false
-  },
-  "custom/weather": {
-    "interval": 200,
-    "exec": "curl -s 'https://wttr.in/Омск?format=1&lang=ru'",
-    "on-click": "kitty bash -ci 'curl 'https://wttr.in/Омск?lang=ru' && read -r line'"
-  },
   "custom/swappy": {
     "format": "",
     "on-click-right": "bash ~/.config/waybar/scripts/screenSwappy.sh",
     "on-click": "bash ~/.config/waybar/scripts/screen.sh"
   },
-  "hyprland/mode": {
-    "format": " {}"
-  },
   "clock": {
-    "format": "{:%I:%M}",
-    "tooltip-format": " {:%d.%m.%y} \n{calendar}",
-    "format-alt": "  {:%d.%m.%y}",
+    "format": "{:%I\n%M}",
+    "tooltip-format": " {:%d} {calendar}",
     "calendar": {
       "mode": "month",
-      "mode-mon-col": 2,
-      "weeks-pos": "right",
+      "mode-mon-col": 3,
       "on-scroll": 1,
       "on-click-right": "mode",
       "format": {
@@ -55,12 +40,9 @@
       "on-scroll-down": "shift_down"
     }
   },
-  "clock#date": {
-    "format": "{:%I:%M %d.%m}"
-  },
   "tray": {
-    "icon-size": 13,
-    "spacing": 10
+    "icon-size": 14,
+    "spacing": 5
   },
   "custom/wlsunset": {
     "format": "󰈋",
@@ -68,37 +50,19 @@
     "on-click": "bash ~/.config/waybar/scripts/colorPicer.sh",
     "on-click-right": "hyprpicker | wl-copy -n"
   },
-  "cpu": {
-    "interval": 10,
-    "format": "{usage}% ",
-    "on-click": "kitty -e btop",
-    "max-length": 10
-  },
-  "memory": {
-    "interval": 10,
-    "format": "{used:0.1f} GB/{total:0.1f} GB",
-    "on-click": "alacritty -e htop"
-  },
   "hyprland/language": {
-    "format": " 󰋜 {}",
-    "format-en": "us",
-    "format-ru": "ru",
+    "format": "{}",
+    "format-en": "US",
+    "format-ru": "RU",
     "tooltip": false
   },
   "custom/power": {
-    "format": "   ",
-    "on-click": "wlogout --protocol layer-shell",
-    "on-click-right": "~/.config/waybar/scripts/baraction light"
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": " ",
-      "deactivated": " "
-    }
+    "format": "",
+    "on-click": "rofi -show power-menu -modi power-menu:~/.config/waybar/scripts/power.sh ",
+    "on-click-right": "~/.config/waybar/scripts/bgaction"
   },
   "pulseaudio": {
-    "format": "{volume}% {icon}",
+    "format": "{icon}\n{volume}",
     "format-bluetooth": "{volume}% {icon}",
     "format-muted": "",
     "format-icons": {
@@ -113,7 +77,7 @@
         ""
       ]
     },
-    "scroll-step": 1,
+    "scroll-step": 5,
     "on-click": "pavucontrol"
   }
 }

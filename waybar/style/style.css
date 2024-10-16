@@ -40,9 +40,7 @@ window#waybar.hidden {
 
 window#waybar {
   border-radius: 0;
-  background-color: #eaecf1;
-  background-color: rgba(234, 236, 241, 0.6);
-  background-color: #beceeb;
+  background-color: rgba(234, 236, 241, 0.7);
   transition-property: background-color;
   transition-duration: 0.5s;
 }

@@ -1,7 +1,3 @@
-
-
-!.gitignore
-
 !/qutebrowser*
 
 qutebrowser/qsettings/
