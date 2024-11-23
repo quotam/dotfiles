@@ -50,6 +50,7 @@ config.set("qt.force_platform", "wayland")
 
 c.content.tls.certificate_errors = "block"
 c.fileselect.handler = "external"
+
 config.set(
     "fileselect.single_file.command",
     ["kitty", "--class", "yazi,yazi", "yazi", "--chooser-file", "{}"],

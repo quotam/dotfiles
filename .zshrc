@@ -4,7 +4,6 @@ ZSH_THEME="avit"
 
 plugins=(
   git 
-  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -24,6 +23,8 @@ alias lS='eza -1 --color=always --group-directories-first --icons'
 alias lt='eza --tree --level=2 --color=always --group-directories-first --icons'
 alias l.="eza -a | grep -E '^\.'"
 
+alias p='pnpm'
+alias px='pnpx'
 alias doce="sudo systemctl start docker.service"
 
 alias hypr="cd ~/.config/hypr/ && nv"
@@ -32,7 +33,6 @@ alias chad="cd ~/.config/nvim/ && nv"
 alias hyrp="cd ~/.config/hypr/ && nv"
 
 
-# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -43,13 +43,4 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-alias p='pnpm'
-alias px='pnpx'
 # pnpm end
-
-# bun completions
-[ -s "/home/csw/.bun/_bun" ] && source "/home/csw/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
