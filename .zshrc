@@ -28,10 +28,11 @@ alias px='pnpx'
 alias doce="sudo systemctl start docker.service"
 
 alias hypr="cd ~/.config/hypr/ && nv"
+alias ray="sudo systemctl start xray"
 alias kycn="cd ~/Desktop/kycn/ && nv"
 alias chad="cd ~/.config/nvim/ && nv"
-alias hyrp="cd ~/.config/hypr/ && nv"
 
+alias cat="bat"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

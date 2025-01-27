@@ -1,18 +1,19 @@
 import sys
 
-if len(sys.argv) > 1:
-    arg = sys.argv[1]
-else:
-    arg = "default"
+arg = "default"
+
+if len(sys.argv) > 1 and "tmp" in sys.argv[2].lower():
+    arg = "tmp"
 
 config.load_autoconfig(False)
 
 config.set("content.plugins", True)
 config.set("content.pdfjs", True)
 
+config.set("content.javascript.clipboard", "access")
+
 if arg != "default":
     config.set("content.proxy", "socks5://localhost:9050/")
-
     config.set("content.javascript.enabled", False)
     config.set("content.javascript.enabled", True, "https://chatgpt.com")
     config.set("content.javascript.enabled", True, "https://www.youtube.com")
@@ -115,17 +116,26 @@ config.set(
 c.tabs.last_close = "close"
 
 if arg == "default":
-    c.url.start_pages = [
-        "file:///"
-        + __file__.replace("config.py", "")
-        + "/aesthetic-startpage/main-themes/orange/index.html"
-    ]
+
+    if len(sys.argv) > 1 and "vite" in sys.argv[2].lower():
+        c.url.start_pages = [
+            "file:///"
+            + __file__.replace("config.py", "")
+            + "/aesthetic-startpage/main-themes/cherry/index.html"
+        ]
+    else:
+        c.url.start_pages = [
+            "file:///"
+            + __file__.replace("config.py", "")
+            + "/aesthetic-startpage/main-themes/orange/index.html"
+        ]
 else:
     c.url.start_pages = [
         "file:///"
         + __file__.replace("config.py", "")
         + "/aesthetic-startpage/main-themes/white/index.html"
     ]
+
 
 config.set(
     "content.local_content_can_access_file_urls",
@@ -149,7 +159,6 @@ c.tabs.indicator.width = 2
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?q={}",
     "yt": "https://www.youtube.com/results?search_query={}",
-    "c": "https://cse.google.com/cse?cx=7359b9aa378c440ee&q={}",
     "ts": "https://translate.google.com/?sl=auto&text={}&op=translate",
 }
 
@@ -181,7 +190,10 @@ c.colors.statusbar.caret.bg = "#24253C"
 c.colors.statusbar.caret.selection.bg = "#24253C"
 
 if arg == "default":
-    c.colors.tabs.bar.bg = "#161C20"
+    if len(sys.argv) > 1 and "vite" in sys.argv[2].lower():
+        c.colors.tabs.bar.bg = "#CD7685"
+    else:
+        c.colors.tabs.bar.bg = "#161C20"
 else:
     c.colors.tabs.bar.bg = "#F1F1F1"
 
@@ -253,5 +265,10 @@ config.bind("<Ctrl+t>", "spawn --userscript translate --text", mode="passthrough
 
 config.bind("<Ctrl+d>", "devtools")
 config.bind("<Ctrl+o>", "config-source")
+
+
+c.aliases['proxy'] = 'set content.proxy socks://localhost:1080/'
+c.aliases['system'] = 'set content.proxy system'
+
 config.bind("<Ctrl+b>", "bookmark-list -t")
 config.bind("<Ctrl+m>", "spawn mpv {url}")
