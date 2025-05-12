@@ -198,18 +198,17 @@ else:
     c.colors.tabs.bar.bg = "#F1F1F1"
 
 c.colors.tabs.odd.fg = "gray"
-
 c.colors.tabs.odd.bg = "#161C20"
-
 c.colors.tabs.even.fg = "gray"
 
-c.colors.tabs.pinned.selected.even.bg = "#1B2227"
-c.colors.tabs.pinned.selected.odd.bg = "#1B2227"
 c.colors.tabs.even.bg = "#161C20"
 
-c.colors.tabs.pinned.even.bg = "#6E8D6B"
 
-c.colors.tabs.pinned.odd.bg = "#6E8D6B"
+c.colors.tabs.pinned.selected.even.bg = "#6E8D6B"
+c.colors.tabs.pinned.selected.odd.bg = "#6E8D6B"
+
+c.colors.tabs.pinned.even.bg = "#161C20"
+c.colors.tabs.pinned.odd.bg = "#161C20"
 
 c.colors.tabs.selected.even.bg = "#6E8D6B"
 c.colors.tabs.selected.odd.bg = "#6E8D6B"
@@ -267,8 +266,9 @@ config.bind("<Ctrl+d>", "devtools")
 config.bind("<Ctrl+o>", "config-source")
 
 
-c.aliases['proxy'] = 'set content.proxy socks://localhost:1080/'
-c.aliases['system'] = 'set content.proxy system'
+c.aliases["ray"] = "set content.proxy socks://localhost:1080/"
+c.aliases["dpi"] = "set content.proxy socks://localhost:987/"
+c.aliases["system"] = "set content.proxy system"
 
 config.bind("<Ctrl+b>", "bookmark-list -t")
 config.bind("<Ctrl+m>", "spawn mpv {url}")

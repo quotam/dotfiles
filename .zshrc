@@ -8,9 +8,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+export OPENAI_API_KEY=CHANGE_ME
+
 alias nv="nvim"
 alias cls="clear"
 alias :q="exit"
+alias :qa="tmux kill-server"
 alias yy="yazi"
 alias ls='eza --color=always --group-directories-first --icons --tree --level=1'
 alias ll='eza -la --icons --octal-permissions --group-directories-first'
@@ -29,19 +32,6 @@ alias doce="sudo systemctl start docker.service"
 
 alias hypr="cd ~/.config/hypr/ && nv"
 alias ray="sudo systemctl start xray"
-alias kycn="cd ~/Desktop/kycn/ && nv"
+alias dpi="sudo systemctl start zapret"
+alias kycn="cd ~/Desktop/anivite/ && nv"
 alias chad="cd ~/.config/nvim/ && nv"
-
-alias cat="bat"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# pnpm
-export PNPM_HOME="/home/csw/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
