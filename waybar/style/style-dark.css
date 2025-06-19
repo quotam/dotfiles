@@ -92,6 +92,5 @@ window#waybar {
 }
 
 #workspaces button.active {
-  color: #fff;
-  color: purple;
+  color: whitesmoke;
 }
