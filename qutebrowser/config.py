@@ -1,57 +1,60 @@
+# -*- coding: utf-8 -*-
+import os
 import sys
 
-arg = "default"
+# pyright tweaks
+c = c  # type: ignore
+config = config  # type: ignore
 
-if len(sys.argv) > 1 and "tmp" in sys.argv[2].lower():
-    arg = "tmp"
-
+# ======================
+# Config init
+# ======================
 config.load_autoconfig(False)
 
-config.set("content.plugins", True)
-config.set("content.pdfjs", True)
+# ======================
+# Color theme
+# ======================
+BACKGROUND = "#161C20"
+FOREGROUND = "whitesmoke"
+ACCENT_GREEN = "#6E8D6B"
+ACCENT_RED = "#7B3D3C"
+ACCENT_BLUE = "#24253C"
+WARNING = "#EACA8C"
+ERROR = "#4E0102"
+TAB_BAR_DEFAULT = BACKGROUND
+TAB_BAR_CHERRY = "#CD7685"
+TAB_BAR_WHITE = "#F1F1F1"
 
-config.set("content.javascript.clipboard", "access")
+# ======================
+# Line args
+# ======================
+arg = "default"
+theme = "orange"  # Значение по умолчанию
 
-if arg != "default":
-    config.set("content.proxy", "socks5://localhost:9050/")
-    config.set("content.javascript.enabled", False)
-    config.set("content.javascript.enabled", True, "https://chatgpt.com")
-    config.set("content.javascript.enabled", True, "https://www.youtube.com")
+if len(sys.argv) > 1:
+    if "tmp" in sys.argv[2].lower():
+        arg = "tmp"
+    elif "vite" in sys.argv[2].lower():
+        theme = "cherry"
 
-    config.set("content.webrtc_ip_handling_policy", "disable-non-proxied-udp")
+# ======================
+# Core settings
+# ======================
+c.content.plugins = True
+c.content.pdfjs = True
+c.content.javascript.clipboard = "access"
+c.content.blocking.enabled = True
+c.content.blocking.method = "both"
+c.tabs.last_close = "close"
+c.statusbar.show = "in-mode"
+c.tabs.favicons.scale = 1.0
+c.tabs.max_width = 200
+c.tabs.indicator.width = 2
+c.editor.command = ["nvim", "{file}"]
+c.window.title_format = "{perc}{current_title}"
 
-    config.set("content.cookies.accept", "no-3rdparty")
-
-    config.set("content.local_storage", False)
-    config.set("content.local_storage", True, "https://chatgpt.com")
-
-    config.set("content.tls.certificate_errors", "ask-block-thirdparty")
-
-    config.set("content.webgl", False)
-
-    config.set("content.geolocation", False)
-    config.set("content.notifications.enabled", False)
-    config.set("content.media.audio_capture", False)
-    config.set("content.media.video_capture", False)
-
-    config.set("session.default_name", "temporary")
-    config.set("session.lazy_restore", True)
-
-    config.set("content.headers.referer", "same-domain")
-
-
-config.set("content.blocking.enabled", True)
-config.set("content.blocking.method", "both")  # Использует и host-based, и фильтры
-
-config.set("content.notifications.enabled", False, "*://coub.com")
-config.set("content.cookies.accept", "all", "chrome-devtools://*")
-config.set("content.javascript.clipboard", "access")
-config.set("qt.force_platformtheme", "dark")
-config.set("qt.force_platform", "wayland")
-
-c.content.tls.certificate_errors = "block"
+# Custom filemanager
 c.fileselect.handler = "external"
-
 config.set(
     "fileselect.single_file.command",
     ["kitty", "--class", "yazi,yazi", "yazi", "--chooser-file", "{}"],
@@ -65,210 +68,150 @@ config.set(
     ["kitty", "--class", "yazi,yazi", "yazi", "--chooser-file", "{}"],
 )
 
-config.set("content.cookies.accept", "all", "devtools://*")
+# ======================
+# Safety tor mode (tmp mode)
+# ======================
+if arg == "tmp":
+    c.content.proxy = "socks5://localhost:9050/"
+    c.content.proxy_dns_requests = True  # Обязательно разрешаем DNS через Tor
 
-config.set("content.headers.accept_language", "", "https://matchmaker.krunker.io/*")
+    # Параметры безопасности контента
+    c.content.javascript.enabled = False
+    c.content.webrtc_ip_handling_policy = "disable-non-proxied-udp"
+    c.content.webgl = False
+    c.content.canvas_reading = False  # Блокировка чтения данных с canvas
+    c.content.local_storage = False
+    c.content.tls.certificate_errors = "ask-block-thirdparty"
 
-config.set(
-    "content.headers.user_agent",
-    "Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}",
-    "https://web.whatsapp.com/",
-)
+    # Куки и трекинг
+    c.content.cookies.accept = "no-3rdparty"
+    c.content.cookies.store = False  # Не сохранять куки вообще
+    c.content.headers.referer = "same-domain"
+    c.content.headers.custom = {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    }
 
-config.set(
-    "content.headers.user_agent",
-    "Mozilla/5.0 ({os_info}; rv:90.0) Gecko/20100101 Firefox/90.0",
-    "https://accounts.google.com/*",
-)
+    # Защита от утечек данных
+    c.content.geolocation = False
+    c.content.media.audio_capture = False
+    c.content.media.video_capture = False
+    c.content.media.audio_video_capture = False
+    c.content.notifications.enabled = False
 
-# Load images automatically in web pages.
-# Type: Bool
-config.set("content.images", True, "chrome-devtools://*")
+    # Управление сессией
+    c.session.default_name = "temporary"
+    c.session.lazy_restore = True
+    c.auto_save.session = False  # Не сохранять сессию автоматически
 
-# Load images automatically in web pages.
-# Type: Bool
-config.set("content.images", True, "devtools://*")
+    # Дополнительные меры безопасности
+    c.content.autoplay = False  # Блокировка автовоспроизведения
+    c.content.pdfjs = False  # Просмотр PDF внутри браузера
 
-# Enable JavaScript.
-# Type: Bool
-config.set("content.javascript.enabled", True, "chrome-devtools://*")
+    c.content.site_specific_quirks.enabled = (
+        False  # Отключить специальные правила для сайтов
+    )
 
-# Enable JavaScript.
-# Type: Bool
-config.set("content.javascript.enabled", True, "devtools://*")
+    # Очистка данных
+    c.content.cache.size = 0  # Отключить кеш
+    c.history_gap_interval = 0  # Не сохранять историю
+    c.completion.web_history.max_items = 0
 
-# Enable JavaScript.
-# Type: Bool
-config.set("content.javascript.enabled", True, "chrome://*/*")
+# ======================
+# URL tweaks
+# ======================
+config_dir = os.path.dirname(__file__)
+startpage_base = f"file://{config_dir}/aesthetic-startpage/main-themes"
 
-# Enable JavaScript.
-# Type: Bool
-config.set("content.javascript.enabled", True, "qute://*/*")
-
-# Allow locally loaded documents to access remote URLs.
-# Type: Bool
-config.set(
-    "content.local_content_can_access_remote_urls",
-    True,
-    "file:///" + __file__.replace("config.py", "") + "/userscripts/*",
-)
-
-c.tabs.last_close = "close"
-
-if arg == "default":
-
-    if len(sys.argv) > 1 and "vite" in sys.argv[2].lower():
-        c.url.start_pages = [
-            "file:///"
-            + __file__.replace("config.py", "")
-            + "/aesthetic-startpage/main-themes/cherry/index.html"
-        ]
-    else:
-        c.url.start_pages = [
-            "file:///"
-            + __file__.replace("config.py", "")
-            + "/aesthetic-startpage/main-themes/orange/index.html"
-        ]
+if arg == "tmp":
+    c.url.start_pages = [f"{startpage_base}/white/index.html"]
 else:
-    c.url.start_pages = [
-        "file:///"
-        + __file__.replace("config.py", "")
-        + "/aesthetic-startpage/main-themes/white/index.html"
-    ]
-
-
-config.set(
-    "content.local_content_can_access_file_urls",
-    False,
-    "file:///" + __file__.replace("config.py", "") + "/userscripts/*",
-)
-
-c.editor.command = ["nvim", "{file}"]
-c.statusbar.show = "in-mode"
-c.tabs.favicons.scale = 1.0
-
-if arg == "default":
-    c.tabs.title.format = "{audio}{current_title}"
-else:
-    c.tabs.title.format = "{audio}{current_title} | SECURE"
-
-c.tabs.max_width = 200
-
-c.tabs.indicator.width = 2
+    c.url.start_pages = [f"{startpage_base}/{theme}/index.html"]
 
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?q={}",
     "yt": "https://www.youtube.com/results?search_query={}",
     "ts": "https://translate.google.com/?sl=auto&text={}&op=translate",
+    "wayback": "https://web.archive.org/web/*/{}",
 }
 
-c.window.title_format = "{perc}{current_title}"
+# ======================
+# Styling
+# ======================
 
-c.colors.completion.category.bg = (
-    "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #888888, stop:1 #505050)"
+# Tabs
+c.colors.tabs.bar.bg = (
+    TAB_BAR_WHITE
+    if arg == "tmp"
+    else TAB_BAR_CHERRY if theme == "cherry" else BACKGROUND
+)
+c.colors.tabs.even.bg = c.colors.tabs.odd.bg = BACKGROUND
+c.colors.tabs.even.fg = c.colors.tabs.odd.fg = "gray"
+c.colors.tabs.selected.even.bg = c.colors.tabs.selected.odd.bg = ACCENT_GREEN
+c.colors.tabs.pinned.selected.even.bg = c.colors.tabs.pinned.selected.odd.bg = (
+    ACCENT_GREEN
 )
 
-c.colors.tooltip.bg = "#161C20"
+# Status bar
+c.colors.statusbar.normal.bg = c.colors.statusbar.command.bg = BACKGROUND
+c.colors.statusbar.insert.bg = ACCENT_GREEN
+c.colors.statusbar.passthrough.bg = ACCENT_RED
+c.colors.statusbar.caret.bg = ACCENT_BLUE
+c.colors.statusbar.url.success.https.fg = FOREGROUND
 
-c.colors.tooltip.fg = "whitesmoke"
-c.colors.contextmenu.menu.bg = "#161C20"
-
-c.colors.contextmenu.menu.fg = "whitesmoke"
-
-c.colors.prompts.bg = "#161C20"
-
-c.colors.statusbar.normal.bg = "#161C20"
-
-c.colors.statusbar.insert.bg = "#6E8D6B"
-
-c.colors.statusbar.passthrough.bg = "#7B3D3C"
-
-c.colors.statusbar.command.bg = "#161C20"
-
-c.colors.statusbar.caret.bg = "#24253C"
-
-c.colors.statusbar.caret.selection.bg = "#24253C"
-
-if arg == "default":
-    if len(sys.argv) > 1 and "vite" in sys.argv[2].lower():
-        c.colors.tabs.bar.bg = "#CD7685"
-    else:
-        c.colors.tabs.bar.bg = "#161C20"
-else:
-    c.colors.tabs.bar.bg = "#F1F1F1"
-
-c.colors.tabs.odd.fg = "gray"
-c.colors.tabs.odd.bg = "#161C20"
-c.colors.tabs.even.fg = "gray"
-
-c.colors.tabs.even.bg = "#161C20"
-
-
-c.colors.tabs.pinned.selected.even.bg = "#6E8D6B"
-c.colors.tabs.pinned.selected.odd.bg = "#6E8D6B"
-
-c.colors.tabs.pinned.even.bg = "#161C20"
-c.colors.tabs.pinned.odd.bg = "#161C20"
-
-c.colors.tabs.selected.even.bg = "#6E8D6B"
-c.colors.tabs.selected.odd.bg = "#6E8D6B"
-
-
-c.colors.messages.error.bg = "#4E0102"
-c.colors.downloads.error.bg = "#4E0102"
-c.colors.statusbar.url.hover.fg = "white"
-c.colors.messages.warning.bg = "#EACA8C"
-c.colors.statusbar.url.warn.fg = "#EACA8C"
-c.colors.completion.even.bg = "#161C20"
+# Completion
+c.colors.completion.even.bg = BACKGROUND
 c.colors.completion.odd.bg = "#1B2227"
+c.colors.completion.category.bg = BACKGROUND
 
-c.colors.completion.category.bg = "#161C20"
+# Context menu
+c.colors.contextmenu.menu.bg = BACKGROUND
+c.colors.contextmenu.menu.fg = FOREGROUND
 
+# Downloads
+c.colors.downloads.bar.bg = BACKGROUND
+c.colors.downloads.start.bg = BACKGROUND
+c.colors.downloads.stop.bg = ACCENT_GREEN
 
-c.colors.downloads.bar.bg = "#161C20"
+# ======================
+# Input settings
+# ======================
+c.keyhint.delay = 0
+c.qt.force_platformtheme = "dark"
+c.qt.force_platform = "wayland"
 
-c.colors.downloads.start.bg = "#161C20"
-c.colors.downloads.start.fg = "gray"
-
-c.colors.statusbar.url.success.https.fg = "whitesmoke"
-c.colors.downloads.stop.bg = "#6E8D6B"
-c.colors.downloads.stop.fg = "whitesmoke"
-
-config.set("downloads.position", "top")
-
-c.colors.tabs.pinned.even.fg = "gray"
-
-c.fonts.default_family = "JetBrainsMono Nerd Font"
-
-c.bindings.key_mappings = {
-    "<Ctrl+6>": "<Ctrl+^>",
-    "<Ctrl+Enter>": "<Ctrl+Return>",
-    "<Ctrl+[>": "<Escape>",
-    "<Ctrl+i>": "<Tab>",
-    "<Ctrl+j>": "<Return>",
-    "<Ctrl+m>": "<Return>",
-    "<Enter>": "<Return>",
-    "<Shift+Enter>": "<Return>",
-    "<Shift+Return>": "<Return>",
-}
-
-# Bindings for normal mode
+# Keybinds
 config.bind("J", "tab-prev")
 config.bind("K", "tab-next")
-
+config.bind("<Ctrl+Shift+d>", "config-cycle colors.webpage.darkmode.enabled True False")
 config.bind("<Ctrl+Alt+t>", "spawn --userscript translate")
-config.bind("<Ctrl+t>", "spawn --userscript translate --text")
-
 config.bind("<Ctrl+t>", "spawn --userscript translate --text", mode="insert")
-config.bind("<Ctrl+t>", "spawn --userscript translate --text", mode="passthrough")
-
 config.bind("<Ctrl+d>", "devtools")
 config.bind("<Ctrl+o>", "config-source")
-
-
-c.aliases["ray"] = "set content.proxy socks://localhost:1080/"
-c.aliases["dpi"] = "set content.proxy socks://localhost:987/"
-c.aliases["system"] = "set content.proxy system"
-
 config.bind("<Ctrl+b>", "bookmark-list -t")
 config.bind("<Ctrl+m>", "spawn mpv {url}")
+
+# Aliases
+c.aliases.update(
+    {
+        "ray": "set content.proxy socks://localhost:1080/",
+        "dpi": "set content.proxy socks://localhost:987/",
+        "system": "set content.proxy system",
+    }
+)
+
+# ======================
+# Domain rules
+# ======================
+with config.pattern("https://chatgpt.com") as p:
+    p.content.javascript.enabled = True
+    p.content.local_storage = True
+
+with config.pattern("*://coub.com") as p:
+    p.content.notifications.enabled = False
+
+# TLS
+c.content.tls.certificate_errors = "block"
+
+# Fonts
+c.fonts.default_size = "15px"
+c.fonts.default_family = "JetBrainsMono Nerd Font"
