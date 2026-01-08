@@ -31,7 +31,7 @@ QUTE_URL='https://duckduckgo.com'
 urls=$(cat ~/.config/qutebrowser/bookmarks/urls)
 echo "$urls" sed -E 's/[^ ]+ +//g' | grep -E "https?:"
 # url=$(printf | cat ~/.config/qutebrowser/bookmarks/urls - | rofi -dmenu -i -p "Open:")
- # url=$(echo "$url" | sed -E 's/[^ ]+ +//g' | grep -E "https?:" || echo "$url")
+# url=$(echo "$url" | sed -E 's/[^ ]+ +//g' | grep -E "https?:" || echo "$url")
 
 
 #
