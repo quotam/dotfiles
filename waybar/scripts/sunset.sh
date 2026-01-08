@@ -1,2 +1,2 @@
 killall wlsunset
-wlsunset -l 54 -L 73 -t 2400 -T 4000
+wlsunset -l 54 -L 73 -t 2200 -T 3000
