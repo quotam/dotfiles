@@ -28,6 +28,11 @@ prepend_rules = [
 	{ name = "*.html", use = [ "open", "edit" ] },
 ]
 
+[preview]
+image = true       # Должно быть true
+sixel = true       # Для поддержки Sixel
+kitty = true       # Для протокола Kitty
+
 # append_rules = [
 # 	{ name = "*", use = "my-fallback" },
 # ]
