@@ -1,0 +1,9 @@
+!/qutebrowser*
+
+qutebrowser/qsettings/
+qutebrowser/autoconfig.yml
+qutebrowser/bookmarks/
+
+!/waybar*
+!/sway*
+!/kitty*

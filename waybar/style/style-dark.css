@@ -1,0 +1,96 @@
+* {
+  border: none;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  min-height: 0;
+}
+window#waybar.hidden {
+  opacity: 0;
+}
+
+#mode,
+#idle_inhibitor,
+#custom-power,
+#clock,
+#language,
+#memory,
+#cpu,
+#custom-weather,
+#battery,
+#pulseaudio,
+#network,
+#disk,
+#workspaces,
+#tray,
+#custom-wlsunset,
+#window,
+#custom-light_dark,
+#custom-swappy {
+  margin-bottom: 10px;
+  transition: none;
+  color: #fff;
+  margin-left: 2px;
+  margin-right: 2px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#tray {
+  margin-top: 5px;
+}
+
+#language {
+  margin-bottom: 0;
+}
+
+#clock {
+  font-size: 14px;
+  margin-top: 6px;
+  margin-bottom: 2px;
+}
+
+#pulseaudio {
+  margin-bottom: 7px;
+}
+
+#custom-wlsunset,
+#custom-swappy {
+  margin-left: -1px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+window#waybar {
+  border-radius: 0;
+  background-color: transparent;
+  background: rgba(17, 18, 25, 0.8);
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
+
+#workspaces button label,
+#workspaces button label {
+  font-size: 16px;
+  font-family: Monospace;
+}
+
+#workspaces button {
+  transition: none;
+  background: transparent;
+  padding: 6px 0 6px 6px;
+  margin: 0;
+  margin-left: -4px;
+  font-weight: bold;
+  font-size: 14px;
+  color: gray;
+}
+
+#workspaces button.active {
+  color: whitesmoke;
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "height": 14,
+    "name": "some",
+    "output": "!HDMI-A-2",
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/mode",
+      "hyprland/window"
+    ],
+    "modules-center": [
+      "tray",
+      "clock",
+      "custom/weather"
+    ],
+    "modules-right": [
+      "custom/wlsunset",
+      "custom/swappy",
+      "pulseaudio",
+      "hyprland/language",
+      "custom/power"
+    ],
+    "include": [
+      "~/.config/waybar/modules.jsonc"
+    ]
+  },
+  {
+    "layer": "top",
+    "height": 14,
+    "name": "some-2",
+    "output": "HDMI-A-2",
+    "modules-center": [
+      "clock#date"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/mode",
+      "hyprland/window"
+    ],
+    "modules-right": [
+      "custom/swappy",
+      "custom/wlsunset",
+      "cpu",
+      "memory"
+    ],
+    "include": [
+      "~/.config/waybar/modules.jsonc"
+    ]
+  }
+]

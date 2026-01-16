@@ -1,0 +1,82 @@
+{
+  "hyprland/window": {
+    "max-length": 70,
+    "separate-outputs": true
+  },
+  "hyprland/workspaces": {
+    "on-scroll": "hyprctl dispatch workspace {}",
+    "format": "{name}",
+    "format-icons": {
+      "active": "",
+      "default": "",
+      "persistent": ""
+    }
+  },
+  "custom/swappy": {
+    "format": "",
+    "on-click-right": "bash ~/.config/waybar/scripts/screenSwappy.sh",
+    "on-click": "bash ~/.config/waybar/scripts/screen.sh"
+  },
+  "clock": {
+    "format": "{:%I\n%M}",
+    "tooltip-format": " {:%d} {calendar}",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "on-click-right": "mode",
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 12
+  },
+  "custom/wlsunset": {
+    "format": "󰈋",
+    "tooltip": "night light",
+    "on-click": "bash ~/.config/waybar/scripts/colorPicer.sh",
+    "on-click-right": "hyprpicker | wl-copy -n"
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "US",
+    "format-ru": "RU",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "rofi -show power-menu -modi power-menu:~/.config/waybar/scripts/power.sh ",
+    "on-click-right": "~/.config/waybar/scripts/bgaction"
+  },
+  "pulseaudio": {
+    "format": "{icon}\n{volume}",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "🎧",
+      "hands-free": "🎧",
+      "headset": "🎧",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        ""
+      ]
+    },
+    "scroll-step": 5,
+    "on-click": "pavucontrol"
+  }
+}
