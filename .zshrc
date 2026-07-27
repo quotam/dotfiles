@@ -8,11 +8,14 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+export OPENAI_API_KEY=key
+export OPENAI_MODEL=model
+export OPENAI_API_BASE=baseurl
+
 aider:base() {
     aider \
         --pretty \
         --stream \
-        --map-tokens 2048 \
         --editor nvim \
         --notifications \
         --dark-mode \
@@ -23,12 +26,10 @@ aider:base() {
         "$@"
 }
 
-
 a(){
   aider:base \
-        --model "openai/DeepSeek-V3.2-Exp" \ 
+        --model $OPENAI_MODEL \ 
         "$@"
-
 }
 
 aider:ollama() {
@@ -39,10 +40,6 @@ aider:ollama() {
             --model "ollama_chat/$selected_model" \
             "$@"
 }
-
-
-export OPENAI_API_BASE=https://agent.api.url
-export OPENAI_API_KEY=key
 
 alias nv="nvim"
 alias cls="clear"
@@ -60,7 +57,6 @@ alias lS='eza -1 --color=always --group-directories-first --icons'
 alias lt='eza --tree --level=1 --color=always --group-directories-first --icons'
 alias l.="eza -a | grep -E '^\.'"
 
-
 alias p='pnpm'
 alias px='pnpx'
 
@@ -73,11 +69,12 @@ alias tor:s="sudo systemctl status tor"
 alias doce="sudo systemctl start docker.service"
 alias doce:q="sudo systemctl stop docker.service"
 
-alias hypr="cd ~/.config/hypr/ && nv"
 alias ray="sudo systemctl start xray"
-
+alias 0day="ssh -L 4000:localhost:40000 -N -T proxy"
+alias proxy="ssh -L 1080:localhost:12674 -N -T proxy"
 alias dpi="sudo systemctl start zapret"
 alias dpi:q="sudo systemctl stop zapret"
 
 alias kycn="cd ~/Desktop/anivite/ && nv"
+alias hypr="cd ~/.config/hypr/ && nv"
 alias chad="cd ~/.config/nvim/ && nv"
