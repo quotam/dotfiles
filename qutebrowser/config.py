@@ -15,7 +15,7 @@ config.load_autoconfig(False)
 # Line args
 # ======================
 arg = "default"
-theme = "orange"  # Значение по умолчанию
+theme = "orange"  
 
 if len(sys.argv) > 1:
     if "tmp" in sys.argv[2].lower():
@@ -45,7 +45,7 @@ c.window.title_format = "{perc}{current_title}"
 # ======================
 if arg == "tmp":
     c.content.proxy = "socks5://localhost:9050/"
-    c.content.proxy_dns_requests = True  # Обязательно разрешаем DNS через Tor
+    c.content.proxy_dns_requests = True 
 
     c.content.headers.user_agent = (
         "Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0"
@@ -64,7 +64,7 @@ if arg == "tmp":
     c.content.canvas_reading = False
     c.content.webgl = False
     c.content.webgl = False
-    c.content.canvas_reading = False  # Блокировка чтения данных с canvas
+    c.content.canvas_reading = False  
     c.content.local_storage = False
     c.content.media.audio_video_capture = False
     c.content.tls.certificate_errors = "ask-block-thirdparty"
@@ -177,10 +177,11 @@ c.colors.messages.info.fg = FOREGROUND
 # ======================
 # URL tweaks
 # ======================
-c.url.start_pages = [f"http://localhost:4444"]
+c.url.start_pages = [f"http://localhost:9090"]
 
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}",
+    "x": "http://localhost:9090/search?q={}",
     "g": "https://www.google.com/search?q={}",
     "yt": "https://www.youtube.com/results?search_query={}",
     "ts": "https://translate.google.com/?sl=auto&text={}&op=translate",
@@ -194,14 +195,6 @@ c.url.searchengines = {
 c.keyhint.delay = 0
 c.qt.force_platformtheme = "dark"
 
-if arg != "tmp":
-    # Nvidia optimization
-    c.qt.force_platform = "wayland-egl"
-    c.qt.args = [
-        "enable-features=Vulkan",
-        "ignore-gpu-blocklist",
-        "--use-vulkan=swiftshader",
-    ]
 
 # Keybinds
 config.bind("J", "tab-prev")
@@ -234,7 +227,6 @@ with config.pattern("https://chatgpt.com") as p:
 with config.pattern("*://coub.com") as p:
     p.content.notifications.enabled = False
 
-
 with config.pattern("http://localhost:4444") as p:
     p.content.notifications.enabled = False
     p.content.geolocation = False
@@ -259,8 +251,10 @@ config.set(
 
 
 # TLS
-c.content.tls.certificate_errors = "block"
+c.content.tls.certificate_errors = "ask"
 
 # Fonts
-c.fonts.default_size = "15px"
+c.fonts.default_size = "15pt"
 c.fonts.default_family = "JetBrainsMono Nerd Font"
+
+

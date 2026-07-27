@@ -16,18 +16,6 @@ open = [
 	{ run = 'xdg-open "$@"', desc = "Open" },
 ]
 
-[open]
-prepend_rules = [
-	{ name = "*.json", use = "edit" },
-	{ name = "*.svg", use = "edit" },
-  { name = "*.tar.gz", use = "fileRoller" },
-  { name = "*.tar", use = "fileRoller" },
-  { name = "*.zip", use = "fileRoller" },
-	{ name = "*.mp3", use = "cmus" },
-	# Multiple openers for a single rule
-	{ name = "*.html", use = [ "open", "edit" ] },
-]
-
 [preview]
 image = true       # Должно быть true
 sixel = true       # Для поддержки Sixel

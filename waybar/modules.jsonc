@@ -47,7 +47,7 @@
   "custom/wlsunset": {
     "format": "󰈋",
     "tooltip": "night light",
-    "on-click": "bash ~/.config/waybar/scripts/colorPicer.sh",
+    "on-click": "hyprpicker -f hsl | wl-copy -n",
     "on-click-right": "hyprpicker | wl-copy -n"
   },
   "hyprland/language": {
