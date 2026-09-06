@@ -13,7 +13,7 @@ set -e
 set -u
 
 # All supported choices
-all=(shutdown reboot suspend logout lockscreen)
+all=(shutdown reboot suspend logout)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -36,7 +36,7 @@ icons[cancel]="\Uf0156"
 
 declare -A actions
 actions[lockscreen]="swaylock"
-actions[logout]="hyprctl dispatch exit"
+actions[logout]="swaymsg exit"
 actions[suspend]="systemctl suspend"
 actions[reboot]="systemctl reboot"
 actions[shutdown]="systemctl poweroff"

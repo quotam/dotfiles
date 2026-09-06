@@ -91,6 +91,6 @@ window#waybar {
   color: gray;
 }
 
-#workspaces button.active {
+#workspaces button.focused {
   color: whitesmoke;
 }

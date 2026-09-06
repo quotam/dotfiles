@@ -1,3 +1,0 @@
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
-
- element-icon { size: 2.8ch ; }

@@ -1,21 +1,22 @@
 {
-  "hyprland/window": {
+  "sway/window": {
     "max-length": 70,
     "separate-outputs": true
   },
-  "hyprland/workspaces": {
-    "on-scroll": "hyprctl dispatch workspace {}",
+ "sway/workspaces": {
+    "on-scroll": "swaymsg workspace number {}",
     "format": "{name}",
     "format-icons": {
-      "active": "",
-      "default": "",
-      "persistent": ""
+      "focused": "",
+      "unfocused": "",
+      "visible": "",
+      "urgent": ""
     }
-  },
+  }, 
   "custom/swappy": {
     "format": "",
-    "on-click-right": "bash ~/.config/waybar/scripts/screenSwappy.sh",
-    "on-click": "bash ~/.config/waybar/scripts/screen.sh"
+    "on-click-right": "bash grim -g \"$(slurp)\" - | satty -f - --floating-hack",
+    "on-click": "bash grim -g \"$(slurp -d)\" - | wl-copy"
   },
   "clock": {
     "format": "{:%I\n%M}",
@@ -50,7 +51,7 @@
     "on-click": "hyprpicker -f hsl | wl-copy -n",
     "on-click-right": "hyprpicker | wl-copy -n"
   },
-  "hyprland/language": {
+  "sway/language": {
     "format": "{}",
     "format-en": "US",
     "format-ru": "RU",

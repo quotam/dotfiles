@@ -11,9 +11,9 @@
       "tray"
     ],
     "modules-left": [
-      "hyprland/language",
+      "sway/language",
       "clock",
-      "hyprland/workspaces"
+      "sway/workspaces"
     ],
     "modules-right": [
       "custom/power"
@@ -32,9 +32,9 @@
       "custom/wlsunset"
     ],
     "modules-left": [
-      "hyprland/language",
+      "sway/language",
       "clock",
-      "hyprland/workspaces"
+      "sway/workspaces"
     ],
     "modules-right": [],
     "include": [
