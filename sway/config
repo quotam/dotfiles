@@ -18,7 +18,7 @@ exec ~/.config/waybar/scripts/sunset.sh
 
 exec gsettings set org.gnome.desktop.interface icon-theme Nordzy-dark
 exec gsettings set org.gnome.desktop.interface cursor-theme Sunity-cursors
-seat seat0 xcursor_theme Sunity-cursors 18
+seat seat0 xcursor_theme Sunity-cursors 20
 
 # Monitor
 output HDMI-A-1 mode 1920x1080@60Hz position 1920,0
